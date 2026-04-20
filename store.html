@@ -664,6 +664,7 @@
 
 <script>
     // PRODUCT DATABASE with redirect links (each product has own payment link)
+    // NEW PRODUCT ADDED: Valorant Skin Tool
     const productsDB = [
         {
             id: "valorant-colorbot",
@@ -671,13 +672,13 @@
             tag: "Popular",
             price: 24.99,
             desc: "Advanced color-based aim assistance with smooth tracking and customizable settings.",
-            longDesc: "Our Valorant Colorbot uses advanced color detection algorithms to provide smooth and natural aim assistance.",
-            features: ["Advanced color detection algorithm", "Customizable FOV and smoothing", "Adjustable aim speed", "Hotkey toggle on/off", "Low CPU usage", "Works with any resolution"],
-            sysReq: "Windows 10/11, Intel/AMD 2GHz+, 4GB RAM, DirectX 11 GPU",
+            longDesc: "Our Valorant Colorbot uses advanced color detection algorithms to provide smooth and natural aim assistance. Fully customizable FOV, smoothing, and targeting options make this the perfect tool for players who want to improve their aim without being obvious.",
+            features: ["Advanced color detection algorithm", "Customizable FOV and smoothing", "Adjustable aim speed", "Hotkey toggle on/off", "Low CPU usage", "Works with any resolution", "Anti-detection measures", "Regular updates for game patches"],
+            sysReq: "Windows 10/11, Intel/AMD 2GHz+, 4GB RAM, DirectX 11 GPU, Valorant installed. Disable Vanguard during setup.",
             imageMain: "colorbot.jpg",
             imageThumb: "colorbot.jpg",
             badgeColor: "#e85da2",
-            paymentLink: "https://sellhub.com/checkout/valorant-colorbot" // example redirect
+            paymentLink: "https://sellhub.com/checkout/valorant-colorbot"
         },
         {
             id: "valorant-slotted-esp",
@@ -685,9 +686,9 @@
             tag: "Hot",
             price: 29.99,
             desc: "See enemies through walls with our premium undetected ESP solution.",
-            longDesc: "Slotted ESP provides full box ESP, distance indicators, health bars, and visible checks.",
-            features: ["Box & Skeleton ESP", "Distance & Health indicators", "Visible only / glow effects", "Aimbot integration ready", "External memory-safe", "Stream-proof mode"],
-            sysReq: "Windows 10/11, 8GB RAM recommended, Intel i5+",
+            longDesc: "Slotted ESP provides full box ESP, distance indicators, health bars, and visible checks. Fully customizable colors and rendering options. Updated weekly to stay ahead of anti-cheat.",
+            features: ["Box & Skeleton ESP", "Distance & Health indicators", "Visible only / glow effects", "Aimbot integration ready", "External memory-safe", "Stream-proof mode", "Customizable colors", "Regular signature updates"],
+            sysReq: "Windows 10/11, 8GB RAM recommended, Intel i5+, Administrator mode.",
             imageMain: "slotted.jpg",
             imageThumb: "slotted.jpg",
             badgeColor: "#ff4d4d",
@@ -699,9 +700,9 @@
             tag: "Best Seller",
             price: 19.99,
             desc: "Automatic trigger when crosshair aligns with enemy target.",
-            longDesc: "The Triggerbot automatically fires when your crosshair is on an enemy target.",
-            features: ["Automatic fire on target detection", "Customizable reaction delay", "Humanization settings", "Hotkey activation", "Works with all weapons", "Memory-safe operation"],
-            sysReq: "Windows 10/11, 4GB RAM, Any DirectX 11 GPU",
+            longDesc: "The Triggerbot automatically fires when your crosshair is on an enemy target. With customizable reaction delay and humanization settings, your shots will look completely natural while landing with perfect timing.",
+            features: ["Automatic fire on target detection", "Customizable reaction delay", "Humanization settings", "Target color customization", "Hotkey activation", "Works with all weapons", "Adjustable trigger zone", "Memory-safe operation"],
+            sysReq: "Windows 10/11, 4GB RAM, Any DirectX 11 GPU, Run as Administrator.",
             imageMain: "triggerbot.jpg",
             imageThumb: "triggerbot.jpg",
             badgeColor: "#4da6ff",
@@ -713,13 +714,32 @@
             tag: "Essential",
             price: 34.99,
             desc: "Hardware ID spoofing to protect your system identity and bypass bans.",
-            longDesc: "Our HWID Spoofer changes your hardware identifiers to protect you from hardware bans.",
-            features: ["Disk serial number spoofing", "Motherboard ID spoofing", "MAC address randomization", "GPU identifier masking", "Registry trace cleaning", "One-click spoof activation"],
-            sysReq: "Windows 10/11, 4GB RAM, Administrator privileges",
+            longDesc: "Our HWID Spoofer changes your hardware identifiers to protect you from hardware bans. Spoof your disk serial, motherboard ID, MAC address, and more. Essential for anyone who has received a hardware ban.",
+            features: ["Disk serial number spoofing", "Motherboard ID spoofing", "MAC address randomization", "GPU identifier masking", "Registry trace cleaning", "One-click spoof activation", "Revert to original IDs anytime", "Works with all anti-cheats"],
+            sysReq: "Windows 10/11, 4GB RAM, Administrator privileges, Secure Boot may need to be disabled. TPM bypass included.",
             imageMain: "hwid-spoofer.jpg",
             imageThumb: "hwid-spoofer.jpg",
             badgeColor: "#ff9f43",
             paymentLink: "https://vector.sellhub.cx/product/SPOOFER/"
+        },
+        {
+            id: "valorant-skin-tool",
+            name: "Valorant Skin Tool",
+            tag: "New",
+            price: 14.99,
+            desc: "Unlock any skin in Valorant with our undetected skin changer. View and use any weapon skin.",
+            longDesc: "Our Valorant Skin Tool allows you to change weapon skins locally, giving you access to all skins including exclusives, bundles, and battle pass items. Fully undetected and updated regularly. Works with all agents and weapons.",
+            features: [
+                "All weapon skins unlocked", "Exclusive & bundle skins included",
+                "Battle pass skins available", "One-click skin activation",
+                "Works with all agents", "No game file modification",
+                "Undetected by Vanguard", "Regular skin database updates"
+            ],
+            sysReq: "Windows 10/11, 4GB RAM, Valorant installed, Run as Administrator.",
+            imageMain: "skin-tool.jpg",
+            imageThumb: "skin-tool.jpg",
+            badgeColor: "#00c853",
+            paymentLink: "https://vector.sellhub.cx/product/SKIN-TOOL/"
         }
     ];
 
@@ -785,9 +805,11 @@
                 </div>
                 <div class="tab-content" id="tab-updates">
                     <p><strong>Free Lifetime Updates</strong> — All products include free updates forever. Join our Discord for instant patch notifications. 24/7 ticket support.</p>
+                    <p style="margin-top: 12px;">✅ Automatic updater included<br>✅ Priority support for all customers<br>✅ Changelog available in Discord</p>
                 </div>
                 <div class="tab-content" id="tab-delivery">
-                    <p><strong>Instant Delivery</strong> — After payment, you will receive access to your license key and download links immediately via email. Secured by Umbra & Sellhub.</p>
+                    <p><strong>Instant Delivery</strong> — After payment, you will receive access to your license key and download links immediately via email. We support crypto payments.</p>
+                    <p style="margin-top: 12px;">📧 Email delivery within 1-2 minutes<br>🔐 Lifetime license key (no expiry)<br>📥 Direct download from secure CDN</p>
                 </div>
             </div>
         `;
@@ -824,7 +846,7 @@
             <div class="order-item-row">
                 <div class="order-item-title">${product.name}</div>
                 <div class="order-item-details">
-                    <span>1 Day Key — Qty: 1</span>
+                    <span>Lifetime Key — Qty: 1</span>
                     <span>$${product.price}</span>
                 </div>
                 <div class="order-price">$${product.price}</div>
@@ -856,17 +878,9 @@
         container.innerHTML = html;
 
         const payBtn = document.getElementById('payNowBtn');
-        const termsCheckbox = document.getElementById('termsCheckbox');
         
         if (payBtn) {
             payBtn.addEventListener('click', () => handlePayNow(product));
-        }
-        
-        // Real-time checkbox validation (optional visual)
-        if (termsCheckbox) {
-            termsCheckbox.addEventListener('change', () => {
-                // just for UX, button stays enabled but we validate on click
-            });
         }
         
         // Terms link
@@ -896,21 +910,17 @@
         
         isProcessing = true;
         const payBtn = document.getElementById('payNowBtn');
-        const originalText = payBtn?.innerText;
         if (payBtn) {
             payBtn.innerHTML = '<span class="loading-spinner"></span> Redirecting...';
             payBtn.disabled = true;
         }
         
-        // Show loading toast
         showToast("🔄 Redirecting to secure checkout...", 2000);
         
-        // Redirect to product-specific payment link after short delay
         setTimeout(() => {
             if (product.paymentLink) {
                 window.location.href = product.paymentLink;
             } else {
-                // Fallback demo redirect
                 showToast("Demo: Redirecting to payment gateway...");
                 setTimeout(() => {
                     window.location.href = `https://sellhub.com/checkout/${product.id}`;
