@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VECTOR | Game Enhancements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CORE STYLES & VARIABLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0b0609;
+            --card-bg: #120b0f;
+            --pink: #e85da2;
+            --text-dim: #a1a1a1;
+            --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- GLOBAL ANIMATION (REVEAL ON SCROLL) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 8%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(11, 6, 9, 0.85); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .logo { display: flex; align-items: center; font-weight: 900; letter-spacing: 1px; font-size: 1.2rem; }
+        .logo span { background: var(--pink); padding: 2px 8px; border-radius: 5px; margin-right: 8px; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; transition: 0.3s; font-weight: 500; }
+        .nav-links a:hover { color: white; }
+        .btn-discord { background: var(--pink); padding: 10px 22px; border-radius: 8px; text-decoration: none; color: white; font-weight: 700; font-size: 0.9rem; transition: 0.3s; }
+        .btn-discord:hover { opacity: 0.8; transform: scale(1.05); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+            background: radial-gradient(circle at center, #25101a 0%, #0b0609 70%);
+            padding: 0 10%;
+        }
+        .hero .top-tag { color: var(--text-dim); letter-spacing: 4px; font-size: 0.8rem; margin-bottom: 10px; font-weight: 600; }
+        .hero h1 { font-size: clamp(4rem, 12vw, 9rem); font-weight: 900; color: var(--pink); line-height: 0.85; margin: 0; }
+        .hero h2 { font-size: clamp(1rem, 3vw, 2.2rem); letter-spacing: 12px; margin: 15px 0 30px 0; font-weight: 800; }
+        .hero .desc { max-width: 650px; color: var(--text-dim); margin-bottom: 40px; font-size: 1.1rem; }
+        
+        .hero-btns { display: flex; gap: 15px; margin-bottom: 50px; }
+        .btn-primary { background: var(--pink); border: none; padding: 16px 35px; border-radius: 8px; color: white; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .btn-secondary { background: #1a1116; border: 1px solid #33222b; padding: 16px 35px; border-radius: 8px; color: white; font-weight: 800; cursor: pointer; transition: 0.3s; }
+
+        .stats-bar { display: flex; gap: 60px; }
+        .stat-item { display: flex; flex-direction: column; align-items: center; }
+        .stat-item b { font-size: 2.2rem; font-weight: 900; }
+        .stat-item span { font-size: 0.9rem; color: var(--text-dim); }
+
+        /* --- SECTION TITLES --- */
+        .section-tag { color: var(--pink); font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        .section-title { font-size: 3.5rem; font-weight: 900; margin-bottom: 15px; }
+
+        /* --- CONTINUOUS ROLLING REVIEWS --- */
+        .reviews-section { padding: 120px 0; text-align: center; overflow: hidden; background: rgba(255,255,255,0.01); }
+        
+        .reviews-slider {
+            width: 100%;
+            margin-top: 60px;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .reviews-track {
+            display: flex;
+            gap: 25px;
+            animation: scrollReview 40s linear infinite;
+            width: calc(330px * 12); 
+        }
+
+        .reviews-slider:hover .reviews-track {
+            animation-play-state: paused;
+        }
+
+        .review-card {
+            min-width: 330px;
+            background: var(--card-bg);
+            border: 1px solid #1f141a;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: left;
+            transition: 0.3s;
+        }
+        .review-card:hover { border-color: var(--pink); transform: translateY(-5px); }
+        .user-info { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background: #25101a; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--pink); }
+        .review-text { color: var(--text-dim); font-size: 1rem; font-style: italic; }
+
+        @keyframes scrollReview {
+            0% { transform: translateX(0); }
+            100% { 
+                transform: translateX(calc(-330px * 6 - 25px * 6)); 
+            }
+        }
+
+        /* --- PRODUCTS (4 ITEMS) --- */
+        .products-section { padding: 120px 8%; text-align: center; }
+        
+        .product-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            margin-top: 70px; 
+        }
+
+        .product-card {
+            background: var(--card-bg); border-radius: 20px; border: 1px solid #1f141a;
+            padding: 20px; position: relative; transition: 0.4s; overflow: hidden;
+            display: flex; flex-direction: column;
+            cursor: pointer;
+        }
+        .product-card:hover { transform: translateY(-10px); border-color: var(--pink); }
+        .product-card img { width: 100%; border-radius: 14px; margin-bottom: 20px; background: #1a1116; min-height: 180px; object-fit: cover; }
+        
+        .p-badge { position: absolute; top: 30px; right: 30px; background: var(--pink); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; z-index: 2; }
+        
+        .product-card h3 { margin-bottom: 10px; font-size: 1.3rem; }
+        .product-card .p-desc { color: var(--text-dim); font-size: 0.9rem; margin-bottom: auto; padding-bottom: 20px; }
+
+        .price-box { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #1f141a; }
+        .price-box b { font-size: 1.6rem; color: white; }
+        .btn-view { background: #1a1116; color: white; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 700; border: 1px solid #33222b; transition: 0.3s; display: inline-block; cursor: pointer; }
+        .btn-view:hover { background: var(--pink); border-color: var(--pink); }
+
+        /* --- FAQ SECTION --- */
+        .faq-section { padding: 120px 20%; text-align: center; }
+        .faq-list { margin-top: 60px; text-align: left; }
+        .faq-item { border-bottom: 1px solid #1f141a; padding: 25px 0; cursor: pointer; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1.1rem; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; color: var(--text-dim); padding-top: 0; font-size: 0.95rem; }
+        .faq-item.active .faq-answer { max-height: 200px; padding-top: 15px; }
+        .arrow { transition: transform 0.3s; }
+        .faq-item.active .arrow { transform: rotate(180deg); }
+
+        /* --- COMMUNITY & FOOTER --- */
+        .community-section { padding: 120px 8%; text-align: center; }
+        .community-card { background: var(--card-bg); border: 1px solid #1f141a; border-radius: 24px; padding: 80px 40px; }
+        .community-card h2 { font-size: 3rem; margin-bottom: 20px; }
+        .community-card p { max-width: 600px; margin: 0 auto 40px auto; color: var(--text-dim); }
+        .tag-row { display: flex; gap: 15px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
+        .tag { background: #1a1116; border: 1px solid #33222b; padding: 8px 18px; border-radius: 20px; font-size: 0.85rem; color: var(--text-dim); display: flex; align-items: center; gap: 8px; }
+        
+        footer { padding: 60px 8%; border-top: 1px solid #1f141a; display: flex; justify-content: space-between; align-items: center; color: var(--text-dim); font-size: 0.9rem; flex-wrap: wrap; gap: 20px; }
+        .footer-links { display: flex; gap: 25px; list-style: none; }
+        .footer-links a { text-decoration: none; color: var(--text-dim); transition: 0.3s; }
+        .footer-links a:hover { color: white; }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 6rem; }
+            .faq-section { padding: 120px 10%; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 4rem; }
+            .hero h2 { letter-spacing: 4px; font-size: 1.2rem; }
+            .nav-links { display: none; }
+            .stats-bar { gap: 20px; flex-direction: column; }
+            .product-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; text-align: center; }
+            .community-card h2 { font-size: 2.2rem; }
+            .community-card { padding: 50px 20px; }
+        }
+
+        /* toast notification */
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f1a1e;
+            backdrop-filter: blur(12px);
+            padding: 12px 24px;
+            border-radius: 60px;
+            color: white;
+            font-weight: 500;
+            border-left: 4px solid var(--pink);
+            z-index: 2000;
+            animation: fadeUp 0.3s ease;
+            pointer-events: none;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; bottom: 0; }
+            to { opacity: 1; bottom: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><span>V</span> VECTOR</div>
+        <ul class="nav-links">
+            <li><a href="#products">Products</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="store.html">Store</a></li>
+        </ul>
+        <a href="#" class="btn-discord" id="discordNav">Join Discord</a>
+    </nav>
+
+    <header class="hero">
+        <p class="top-tag reveal">UNDETECTED & SECURE</p>
+        <h1 class="reveal">VECTOR</h1>
+        <h2 class="reveal">GAME ENHANCEMENTS</h2>
+        <p class="reveal desc">Premium tools for all your favorite games. Undetected, regularly updated, and backed by a dedicated community.</p>
+        <div class="hero-btns reveal">
+            <button class="btn-primary" id="browseProductsBtn">Browse Products</button>
+        </div>
+        <div class="stats-bar reveal">
+            <div class="stat-item"><b>500+</b><span>Products Sold</span></div>
+            <div class="stat-item"><b>★ 4.8</b><span>Average Rating</span></div>
+            <div class="stat-item"><b>24/7</b><span>Support</span></div>
+        </div>
+    </header>
+
+    <section class="reviews-section" id="reviews">
+        <p class="section-tag reveal">Feedback</p>
+        <h2 class="reveal section-title">What Our Users Say</h2>
+        <p class="reveal" style="color: var(--text-dim);">Real vouches from real customers</p>
+        
+        <div class="reviews-slider reveal">
+            <div class="reviews-track">
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">H</div><div><strong>Hoya</strong><br><small>Customer • 10/31/2025</small></div></div>
+                    <p class="review-text">"goated tb"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">C</div><div><strong>Chill</strong><br><small>Customer • 11/6/2025</small></div></div>
+                    <p class="review-text">"vouch good color bot"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">J</div><div><strong>Jonte</strong><br><small>Customer • 11/6/2025</small></div></div>
+                    <p class="review-text">"very very good and fast trigger bot"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">1</div><div><strong>11222a0756</strong><br><small>Customer • 11/8/2025</small></div></div>
+                    <p class="review-text">"Super fast, good and friendly, it helps me"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">B</div><div><strong>Batpool</strong><br><small>Customer • 11/9/2025</small></div></div>
+                    <p class="review-text">"working triggerbot"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">A</div><div><strong>Ayman Rayhan</strong><br><small>Customer • 11/16/2025</small></div></div>
+                    <p class="review-text">"thanks for the cheap price and support"</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">H</div><div><strong>Hoya</strong><br><small>Customer • 10/31/2025</small></div></div>
+                    <p class="review-text">"goated tb"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">C</div><div><strong>Chill</strong><br><small>Customer • 11/6/2025</small></div></div>
+                    <p class="review-text">"vouch good color bot"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">J</div><div><strong>Jonte</strong><br><small>Customer • 11/6/2025</small></div></div>
+                    <p class="review-text">"very very good and fast trigger bot"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">1</div><div><strong>11222a0756</strong><br><small>Customer • 11/8/2025</small></div></div>
+                    <p class="review-text">"Super fast, good and friendly, it helps me"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">B</div><div><strong>Batpool</strong><br><small>Customer • 11/9/2025</small></div></div>
+                    <p class="review-text">"working triggerbot"</p>
+                </div>
+                <div class="review-card">
+                    <div class="user-info"><div class="avatar">A</div><div><strong>Ayman Rayhan</strong><br><small>Customer • 11/16/2025</small></div></div>
+                    <p class="review-text">"thanks for the cheap price and support"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section" id="products">
+        <p class="section-tag reveal">Our Products</p>
+        <h2 class="reveal section-title">Choose Your Edge</h2>
+        
+        <div class="product-grid">
+            <!-- Valorant Colorbot -->
+            <div class="product-card reveal" data-product-id="valorant-colorbot" data-product-name="Valorant Colorbot" data-product-price="24.99">
+                <span class="p-badge">Popular</span>
+                <img src="colorbot.jpg" alt="Colorbot" onerror="this.src='https://placehold.co/400x300/1a1116/e85da2?text=COLORBOT'">
+                <h3>Valorant Colorbot</h3>
+                <p class="p-desc">Advanced color-based aim assistance with customizable settings.</p>
+                <div class="price-box"><b>$24.99</b><a href="#" class="btn-view">View Details</a></div>
+            </div>
+            <!-- Valorant Slotted ESP -->
+            <div class="product-card reveal" data-product-id="valorant-slotted-esp" data-product-name="Valorant Slotted ESP" data-product-price="29.99">
+                <span class="p-badge" style="background:#ff4d4d">Hot</span>
+                <img src="slotted.jpg" alt="ESP" onerror="this.src='https://placehold.co/400x300/1a1116/ff4d4d?text=ESP'">
+                <h3>Valorant Slotted ESP</h3>
+                <p class="p-desc">See enemies through walls with our undetected ESP solution.</p>
+                <div class="price-box"><b>$29.99</b><a href="#" class="btn-view">View Details</a></div>
+            </div>
+            <!-- Valorant Triggerbot -->
+            <div class="product-card reveal" data-product-id="valorant-triggerbot" data-product-name="Valorant Triggerbot" data-product-price="19.99">
+                <span class="p-badge" style="background:#4da6ff">Best Seller</span>
+                <img src="triggerbot.jpg" alt="Triggerbot" onerror="this.src='https://placehold.co/400x300/1a1116/4da6ff?text=TRIGGERBOT'">
+                <h3>Valorant Triggerbot</h3>
+                <p class="p-desc">Automatic trigger when crosshair is on target, fully configurable.</p>
+                <div class="price-box"><b>$19.99</b><a href="#" class="btn-view">View Details</a></div>
+            </div>
+            <!-- HWID Spoofer -->
+            <div class="product-card reveal" data-product-id="hwid-spoofer" data-product-name="HWID Spoofer" data-product-price="34.99">
+                <span class="p-badge" style="background:#ff9f43">Essential</span>
+                <img src="hwid-spoofer.jpg" alt="Spoofer" onerror="this.src='https://placehold.co/400x300/1a1116/ff9f43?text=HWID+SPOOFER'">
+                <h3>HWID Spoofer</h3>
+                <p class="p-desc">Hardware ID spoofing to protect your system identity and bypass bans.</p>
+                <div class="price-box"><b>$34.99</b><a href="#" class="btn-view">View Details</a></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <p class="section-tag reveal">Got Questions?</p>
+        <h2 class="reveal section-title">FAQ</h2>
+        
+        <div class="faq-list reveal">
+            <div class="faq-item active">
+                <div class="faq-question">How do I receive my product? <span class="arrow">▼</span></div>
+                <div class="faq-answer">Products are delivered instantly via email and your user dashboard immediately after payment confirmation.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What payment methods are accepted? <span class="arrow">▼</span></div>
+                <div class="faq-answer">We accept major cryptocurrencies including Bitcoin, Ethereum, and Litecoin.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Do you offer refunds? <span class="arrow">▼</span></div>
+                <div class="faq-answer">Due to the digital nature of our products, refunds are generally not offered. Exceptions are made for faulty products within 24 hours.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="community-section">
+        <div class="community-card reveal">
+            <h2>Join Our Community</h2>
+            <p>Get support, updates, giveaways, and connect with thousands of members in our Discord server.</p>
+            <div class="tag-row">
+                <span class="tag">💬 Live Support</span>
+                <span class="tag">🔔 Update Alerts</span>
+                <span class="tag">🎁 Giveaways</span>
+            </div>
+            <a href="#" class="btn-discord" id="communityDiscordBtn">Join Discord Server</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo"><span>V</span> VECTOR</div>
+        <ul class="footer-links">
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="store.html">Store</a></li>
+        </ul>
+        <p>© 2026 Vector. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Reveal on scroll logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // FAQ Toggle Logic
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Toast notification helper
+        function showToast(message, duration = 2500) {
+            const existingToast = document.querySelector('.toast-msg');
+            if (existingToast) existingToast.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, duration);
+        }
+
+        // PRODUCT DATABASE (matches store.html)
+        const productMap = {
+            'valorant-colorbot': { id: 'valorant-colorbot', name: 'Valorant Colorbot' },
+            'valorant-slotted-esp': { id: 'valorant-slotted-esp', name: 'Valorant Slotted ESP' },
+            'valorant-triggerbot': { id: 'valorant-triggerbot', name: 'Valorant Triggerbot' },
+            'hwid-spoofer': { id: 'hwid-spoofer', name: 'HWID Spoofer' }
+        };
+
+        // Navigate to store.html with product parameter
+        function navigateToProduct(productId) {
+            if (productId && productMap[productId]) {
+                window.location.href = `store.html?product=${productId}`;
+            } else {
+                window.location.href = 'store.html';
+            }
+        }
+
+        // Handle product card clicks
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            const productId = card.getAttribute('data-product-id');
+            const viewBtn = card.querySelector('.btn-view');
+            
+            card.addEventListener('click', (e) => {
+                if (e.target.classList.contains('btn-view') || e.target.closest('.btn-view')) {
+                    return;
+                }
+                e.preventDefault();
+                navigateToProduct(productId);
+            });
+            
+            if (viewBtn) {
+                viewBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigateToProduct(productId);
+                });
+            }
+        });
+
+        // Browse Products button - scroll to products section
+        const browseBtn = document.getElementById('browseProductsBtn');
+        if (browseBtn) {
+            browseBtn.addEventListener('click', () => {
+                const productsSection = document.getElementById('products');
+                if (productsSection) {
+                    productsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+
+        // Discord buttons (demo)
+        const discordBtns = document.querySelectorAll('#discordNav, #communityDiscordBtn');
+        discordBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showToast('✨ Join our Discord community for live support! (demo)');
+            });
+        });
+
+        // Navigation links update to use store
+        const storeNavLink = document.querySelector('.nav-links a[href="store.html"]');
+        if (storeNavLink) {
+            storeNavLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'store.html';
+            });
+        }
+
+        // Footer store link
+        const footerStoreLink = document.querySelector('.footer-links a[href="store.html"]');
+        if (footerStoreLink) {
+            footerStoreLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'store.html';
+            });
+        }
+
+        if (window.location.hash === '#products') {
+            setTimeout(() => {
+                const productsSection = document.getElementById('products');
+                if (productsSection) productsSection.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
