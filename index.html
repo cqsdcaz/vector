@@ -1,59 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VectorGG | Professional Development Services</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VectorGG · edge-first development</title>
+  <!-- Tailwind + Google Font (Inter) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    body { background: #0b0f1a; }
+    .glow-card {
+      box-shadow: 0 0 30px -5px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+    }
+    .glow-card:hover {
+      box-shadow: 0 0 45px -5px rgba(37, 99, 235, 0.5);
+      transform: translateY(-4px);
+    }
+    .border-glow {
+      border-color: rgba(37, 99, 235, 0.5);
+    }
+    .bg-subtle {
+      background: #111827;
+    }
+    .nav-blur {
+      backdrop-filter: blur(6px);
+      background: rgba(11, 15, 26, 0.75);
+    }
+    .badge-pulse {
+      animation: pulse-glow 2.4s infinite;
+    }
+    @keyframes pulse-glow {
+      0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.2); }
+      70% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
 </head>
-<body class="bg-gray-950 text-gray-100 font-sans antialiased">
+<body class="text-slate-200 antialiased">
 
-    <!-- Navigation -->
-    <nav class="max-w-6xl mx-auto px-6 py-8 flex justify-between items-center">
-        <h1 class="text-xl font-bold tracking-tighter">VECTORGG.STORE</h1>
-        <a href="YOUR_DISCORD_INVITE_LINK" class="text-sm border border-gray-700 px-4 py-2 rounded hover:bg-gray-800 transition">Client Portal</a>
-    </nav>
+  <!-- NAVIGATION -->
+  <nav class="fixed top-0 left-0 w-full z-50 nav-blur border-b border-slate-800/60">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl font-extrabold tracking-tight text-white">VECTOR</span>
+        <span class="text-2xl font-extrabold tracking-tight text-blue-400">GG</span>
+        <span class="text-[10px] font-semibold uppercase tracking-widest text-slate-500 bg-slate-800/60 px-2 py-0.5 rounded-full ml-1 border border-slate-700">store</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-sm text-slate-400 hover:text-white transition hidden sm:block">work</a>
+        <a href="#" class="text-sm text-slate-400 hover:text-white transition hidden sm:block">about</a>
+        <a href="YOUR_DISCORD_INVITE_LINK" class="bg-blue-600 hover:bg-blue-500 px-5 py-2.5 rounded-xl text-sm font-semibold transition shadow-lg shadow-blue-600/20 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.376-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.42 2.157-2.42 1.21 0 2.176 1.096 2.157 2.42 0 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.42 2.157-2.42 1.21 0 2.176 1.096 2.157 2.42 0 1.334-.946 2.419-2.157 2.419z"/></svg>
+          Join Discord
+        </a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Header -->
-    <header class="max-w-4xl mx-auto px-6 py-24 text-center">
-        <h2 class="text-6xl font-bold mb-6 tracking-tight">Engineering Digital Solutions.</h2>
-        <p class="text-xl text-gray-400 max-w-2xl mx-auto">Providing high-performance web architecture and custom development for professional requirements.</p>
-    </header>
+  <!-- HERO -->
+  <header class="max-w-6xl mx-auto px-6 pt-32 pb-20 text-center relative">
+    <!-- subtle glow orb -->
+    <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="relative z-10">
+      <span class="inline-block bg-slate-800/70 border border-slate-700 text-slate-300 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6 badge-pulse">
+        ⚡ edge-first · vercel native
+      </span>
+      <h2 class="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
+        <span class="text-white">High-performance</span><br />
+        <span class="gradient-text">web solutions</span>
+      </h2>
+      <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mt-6 leading-relaxed">
+        Fast, secure, and professional — built for speed on the Vercel edge network. 
+        From static sites to full-stack apps.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a href="YOUR_DISCORD_INVITE_LINK" class="bg-blue-600 hover:bg-blue-500 px-8 py-3.5 rounded-xl font-semibold transition shadow-lg shadow-blue-600/30 flex items-center gap-2">
+          <span>Start a project</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+        <a href="#" class="border border-slate-700 hover:border-slate-500 px-8 py-3.5 rounded-xl transition flex items-center gap-2">
+          <span>View work</span>
+        </a>
+      </div>
+      <div class="flex flex-wrap justify-center gap-6 mt-12 text-sm text-slate-500">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 bg-emerald-400 rounded-full inline-block"></span> 99.9% uptime</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 bg-blue-400 rounded-full inline-block"></span> edge runtime</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 bg-purple-400 rounded-full inline-block"></span> instant deploys</span>
+      </div>
+    </div>
+  </header>
 
-    <!-- Services Grid -->
-    <section class="max-w-6xl mx-auto px-6 pb-24 grid md:grid-cols-2 gap-6">
-        
-        <!-- Core -->
-        <div class="border border-gray-800 p-10 rounded-sm bg-gray-900/50">
-            <h3 class="text-lg font-semibold mb-1">Core</h3>
-            <p class="text-gray-500 mb-8 text-sm uppercase tracking-widest">Entry-level development</p>
-            <ul class="text-gray-300 space-y-4 mb-10 border-t border-gray-800 pt-8">
-                <li class="flex items-center">Responsive structural design</li>
-                <li class="flex items-center">SEO technical foundation</li>
-                <li class="flex items-center">Modern stack implementation</li>
-            </ul>
-            <div class="text-4xl font-light mb-8">$300</div>
-            <a href="YOUR_DISCORD_INVITE_LINK" class="block text-center bg-white text-black py-3 font-medium hover:bg-gray-200 transition">Request Consultation</a>
+  <!-- PRICING / PLANS -->
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      
+      <!-- CORE -->
+      <div class="bg-subtle border border-slate-800 p-8 rounded-3xl transition hover:border-slate-700 relative">
+        <div class="flex justify-between items-start">
+          <div>
+            <h3 class="text-2xl font-bold text-white">Core</h3>
+            <p class="text-slate-400 mt-1 text-sm">Landing pages & portfolios</p>
+          </div>
+          <span class="bg-slate-800 text-slate-300 text-xs font-semibold px-3 py-1 rounded-full border border-slate-700">popular</span>
         </div>
-
-        <!-- Prime -->
-        <div class="border border-gray-700 p-10 rounded-sm bg-gray-900">
-            <h3 class="text-lg font-semibold mb-1 text-white">Prime</h3>
-            <p class="text-gray-400 mb-8 text-sm uppercase tracking-widest">Full-scale integration</p>
-            <ul class="text-gray-300 space-y-4 mb-10 border-t border-gray-700 pt-8">
-                <li class="flex items-center">Dynamic backend architecture</li>
-                <li class="flex items-center">Database management systems</li>
-                <li class="flex items-center">Custom API & logic integration</li>
-            </ul>
-            <div class="text-4xl font-light mb-8">$1,000</div>
-            <a href="YOUR_DISCORD_INVITE_LINK" class="block text-center border border-white py-3 font-medium hover:bg-white hover:text-black transition">Request Consultation</a>
+        <div class="mt-6 space-y-3 text-slate-300 text-sm">
+          <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">✓</span> Responsive design (mobile-first)</div>
+          <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">✓</span> SEO & performance optimized</div>
+          <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">✓</span> Vercel deploy (CI/CD ready)</div>
+          <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">✓</span> 1 month free support</div>
         </div>
-    </section>
+        <div class="mt-8 flex items-end justify-between">
+          <span class="text-4xl font-extrabold text-white">$300<span class="text-lg font-medium text-slate-400">+</span></span>
+          <a href="YOUR_DISCORD_INVITE_LINK" class="border border-blue-600/60 hover:bg-blue-600/10 px-6 py-2.5 rounded-xl text-sm font-semibold transition">Get started</a>
+        </div>
+      </div>
 
-    <!-- Footer -->
-    <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-gray-900 text-center text-gray-600 text-xs uppercase tracking-widest">
-        &copy; 2026 VectorGG. All Rights Reserved.
-    </footer>
+      <!-- PRIME (highlight) -->
+      <div class="bg-subtle border border-blue-500/60 p-8 rounded-3xl glow-card relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-32 h-32 bg-blue-600/20 rounded-full blur-2xl"></div>
+        <div class="flex justify-between items-start relative z-10">
+          <div>
+            <h3 class="text-2xl font-bold text-white">Prime</h3>
+            <p class="text-slate-400 mt-1 text-sm">Full-stack · databases · APIs</p>
+          </div>
+          <span class="bg-blue-600/20 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/40">best value</span>
+        </div>
+        <div class="mt-6 space-y-3 text-slate-300 text-sm relative z-10">
+          <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">✓</span> Everything in Core</div>
+          <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">✓</span> Database integration (SQL / NoSQL)</div>
+          <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">✓</span> Custom API & auth setup</div>
+          <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">✓</span> Priority support · 3 months</div>
+          <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">✓</span> Performance monitoring</div>
+        </div>
+        <div class="mt-8 flex items-end justify-between relative z-10">
+          <span class="text-4xl font-extrabold text-white">$1,000<span class="text-lg font-medium text-slate-400">+</span></span>
+          <a href="YOUR_DISCORD_INVITE_LINK" class="bg-blue-600 hover:bg-blue-500 px-6 py-2.5 rounded-xl text-sm font-semibold transition shadow-lg shadow-blue-600/30">Get started</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- extra: small note -->
+    <p class="text-center text-slate-500 text-sm mt-10 max-w-xl mx-auto">
+      Every project includes a dedicated Discord channel, 24h response, and a full handover.
+    </p>
+  </section>
+
+  <!-- FEATURES / WHY US (optional but adds density) -->
+  <section class="max-w-6xl mx-auto px-6 pb-16">
+    <div class="grid sm:grid-cols-3 gap-6 text-center border-t border-slate-800/60 pt-14">
+      <div>
+        <div class="w-12 h-12 bg-blue-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-500/20">
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h4 class="text-white font-semibold">Blazing fast</h4>
+        <p class="text-slate-500 text-sm mt-1">Edge-optimized, sub-100ms global responses.</p>
+      </div>
+      <div>
+        <div class="w-12 h-12 bg-purple-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-purple-500/20">
+          <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <h4 class="text-white font-semibold">Secure by default</h4>
+        <p class="text-slate-500 text-sm mt-1">Best practices, HTTPS, and dependency scanning.</p>
+      </div>
+      <div>
+        <div class="w-12 h-12 bg-emerald-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-emerald-500/20">
+          <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </div>
+        <h4 class="text-white font-semibold">Collaborative</h4>
+        <p class="text-slate-500 text-sm mt-1">Private Discord workspace, transparent workflow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/60 bg-[#0a0e18]">
+    <div class="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-lg font-bold tracking-tight text-white">VECTOR<span class="text-blue-400">GG</span></span>
+        <span class="text-xs text-slate-600 font-mono bg-slate-800/50 px-2 py-0.5 rounded border border-slate-700">store</span>
+      </div>
+      <div class="flex gap-6 text-sm text-slate-500">
+        <a href="#" class="hover:text-slate-300 transition">Privacy</a>
+        <a href="#" class="hover:text-slate-300 transition">Terms</a>
+        <a href="YOUR_DISCORD_INVITE_LINK" class="hover:text-blue-400 transition">Discord</a>
+      </div>
+      <p class="text-sm text-slate-600">&copy; 2026 VectorGG. All rights reserved.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
